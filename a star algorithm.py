@@ -52,12 +52,10 @@ TEST_GRIDS= {
         "# # . . . . # ."
     ]
 }
+
+
  
 DIRS= [(-1, 0), (1, 0), (0, -1), (0, 1)] #this changes the coordinates according to movement
-
- 
-
-
 
  
 def parse_grid(raw_rows): # raw rows is list of strings
@@ -65,10 +63,7 @@ def parse_grid(raw_rows): # raw rows is list of strings
     for row in raw_rows:
         
         grid.append(row.split())
-
-
         
- 
     rows= len(grid)
     cols= len(grid[0]) # lenght of first list 
     start = None
@@ -104,7 +99,6 @@ def astar(grid, start, goal, rows, cols):
     seen = set()
     found =False # found will be turned TRUE when g is found
 
-    
  
     while pq :
         f, node = heapq.heappop(pq)# f stores priority no. and node its coordinates
@@ -117,7 +111,6 @@ def astar(grid, start, goal, rows, cols):
         if node== goal:
             found= True
             break
- 
 
 
 
@@ -133,14 +126,8 @@ def astar(grid, start, goal, rows, cols):
  
             new_cost= cost[node] + 1 # fore new near cell
             neighbor= (nr, nc)
- 
-
-
-
-
 
             if neighbor not in cost or new_cost < cost[neighbor]:
-
 
                 cost[neighbor]= new_cost
                 parent[neighbor]=node
@@ -152,11 +139,6 @@ def astar(grid, start, goal, rows, cols):
 
 
 
-
-
-
-    
- 
     # this is use dto  trace the path , and get the coordinates
     path = []
 
@@ -176,11 +158,6 @@ def astar(grid, start, goal, rows, cols):
 def print_result(name, found, path, explored, time_taken, filename):
     print("\n---Search Result---")
     
-
-
-
-
-
 
     if found:
         print(f"{name} Path Found: YES")
@@ -209,10 +186,6 @@ def print_result(name, found, path, explored, time_taken, filename):
 
 
 
-
-
-
-
  
 def draw_grid(grid, path, seen, start, goal, name, filename):
     rows =len(grid)
@@ -226,12 +199,12 @@ def draw_grid(grid, path, seen, start, goal, name, filename):
                 obs[i][j]  =1
 
 
-
  
     fig,ax =plt.subplots(figsize=(6, 6))
     ax.imshow(obs, cmap='binary',origin='upper')
  
     if seen:
+        
         xs =[c for r, c in seen]
         ys =[r for r, c in seen]
         ax.scatter(xs, ys, color='lightblue', marker='s', s=150, alpha=0.6, label='Explored')
@@ -240,7 +213,6 @@ def draw_grid(grid, path, seen, start, goal, name, filename):
     if path:
     
 
-        
         xs =[c for r, c in path]
         ys = [r for r, c in path]
         ax.plot(xs, ys, color='orange', linewidth=3, label='Path')
@@ -248,9 +220,6 @@ def draw_grid(grid, path, seen, start, goal, name, filename):
  
     ax.scatter([start[1]],  [start[0]], color='green', s=150, zorder=5, label='Start (S)')
     ax.scatter([goal[1]], [goal[0]], color='red', s=150, zorder=5, label='Goal (G)')
-
-
-
 
  
     ax.set_xticks(range(cols))
@@ -265,7 +234,6 @@ def draw_grid(grid, path, seen, start, goal, name, filename):
     plt.savefig(filename, bbox_inches="tight")
     plt.close()
  
-
 
 
  
